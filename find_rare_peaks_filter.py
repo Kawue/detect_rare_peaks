@@ -154,7 +154,6 @@ rare_tupels_max = [(bin_edge_tuples_max[i][0], bin_edge_tuples_max[i][1]) for i 
 
 rare_mzs_max = []
 for mz_list in max_specs_filtered_mzs:
-    print(np.array(mz_list))
     rare_mz = []
     for i in mz_list:
         for x,y in rare_tupels_max:
