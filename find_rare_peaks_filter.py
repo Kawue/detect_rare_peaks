@@ -31,10 +31,12 @@ if not os.path.exists(savepath):
 if not os.path.exists(savepath_plots):
     os.makedirs(savepath_plots)
 files = []
+filenames = []
 
 
 for i, f in enumerate(readfiles):
     files.append(pd.read_hdf(f))
+    filenames.append(os.path.basename(f))
     print(f"Dimensions: {files[i].shape}")
 print()
 print("------------------")
@@ -53,13 +55,13 @@ for f in files:
 # checkup plot
 for i,_ in enumerate(files):
     plt.figure()
-    plt.title(f"Mean Spec File Nr.{i}")
+    plt.title(f"Mean Spec File Nr.{i} ({filenames[i]})")
     plt.stem(files[i].columns, mean_specs[i], markerfmt='', basefmt='', bottom=-0.01 , use_line_collection=True)
     plt.savefig(os.path.join(savepath_plots, f"mean_spec_file_nr{i}.png"))
     plt.close()
 
     plt.figure()
-    plt.title(f"Max Spec File Nr.{i}")
+    plt.title(f"Max Spec File Nr.{i} ({filenames[i]})")
     plt.stem(files[i].columns, max_specs[i], markerfmt='', basefmt='', bottom=-0.01 , use_line_collection=True)
     plt.savefig(os.path.join(savepath_plots, f"max_spec_file_nr{i}.png"))
     plt.close()
@@ -82,14 +84,14 @@ for i,_ in enumerate(mean_specs):
     max_specs_filtered_mzs.append(mzs[max_filter_idx])
 
 for i, _ in enumerate(files):
-    print(f"File Nr.{i} -- Mean")
+    print(f"File Nr.{i} ({filenames[i]}) -- Mean")
     print(f"Number of Peaks before Thresholding: {len(mean_specs[i])}")
     print(f"Number of Peaks after Thresholding:  {len(mean_specs_filtered_idxs[i])}")
     print()
 print()
 
 for i, _ in enumerate(files):
-    print(f"File Nr.{i} -- Max")
+    print(f"File Nr.{i} ({filenames[i]}) -- Max")
     print(f"Number of Peaks before Thresholding: {len(max_specs[i])}")
     print(f"Number of Peaks after Thresholding:  {len(max_specs_filtered_idxs[i])}")
     print()
@@ -138,7 +140,7 @@ for mz_list in mean_specs_filtered_mzs:
     rare_mzs_mean.append(rare_mz)
 
 for i, _ in enumerate(files):
-    print(f"File Nr.{i} -- Mean")
+    print(f"File Nr.{i} ({filenames[i]}) -- Mean")
     print(f"Number of Peaks before Thresholding: {len(mean_specs[i])}")
     print(f"Number of Peaks after Thresholding:  {len(mean_specs_filtered_mzs[i])}")
     print(f"Number of Peaks after Filtering:     {len(rare_mzs_mean[i])}")
@@ -162,7 +164,7 @@ for mz_list in max_specs_filtered_mzs:
     rare_mzs_max.append(rare_mz)
 
 for i, _ in enumerate(files):
-    print(f"File Nr.{i} -- Max")
+    print(f"File Nr.{i} ({filenames[i]}) -- Max")
     print(f"Number of Peaks before Thresholding: {len(max_specs[i])}")
     print(f"Number of Peaks after Thresholding:  {len(max_specs_filtered_mzs[i])}")
     print(f"Number of Peaks after Filtering:     {len(rare_mzs_max[i])}")
