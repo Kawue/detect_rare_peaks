@@ -73,8 +73,8 @@ max_specs_filtered_idxs = []
 mean_specs_filtered_mzs = []
 max_specs_filtered_mzs = []
 for i,_ in enumerate(mean_specs):
-    mean_filter_idx = np.where(mean_specs[i] > filter_t)[0]
-    max_filter_idx = np.where(max_specs[i] > filter_t)[0]
+    mean_filter_idx = np.where(mean_specs[i] >= filter_t)[0]
+    max_filter_idx = np.where(max_specs[i] >= filter_t)[0]
     
     mean_specs_filtered_idxs.append(mean_filter_idx)
     max_specs_filtered_idxs.append(max_filter_idx)
